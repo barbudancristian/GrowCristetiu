@@ -1,0 +1,103 @@
+{
+  "config": {
+    "abort": {
+      "single_instance_allowed": "GrowSolar e deja configurat. Îl modifici din Configure."
+    },
+    "step": {
+      "user": {
+        "title": "Sursa datelor",
+        "description": "De unde citește GrowSolar sistemul solar?\n\n- **DongleGrowatt** – invertor(oare) Growatt cu dongle-ul ShineWiFi-X2 scris cu firmware-ul [Growatt-SPF6K-HA]({firmware_url}), câte un dongle pe fiecare invertor, cu pachetul lui pentru Home Assistant instalat. Așa GrowSolar poate și schimba setările invertoarelor.\n- **Solar Assistant** – fără dongle-uri: invertorul sau invertoarele sunt legate cu cablu USB la Solar Assistant, iar Home Assistant ia datele de la Solar Assistant prin MQTT.\n- **Aleg eu senzorii** – alt tip de invertor (nu Growatt) sau orice sistem ai cărui senzori există deja în Home Assistant: alegi la pasul următor senzorii de putere, baterie și energie.\n\nGăsite acum: invertoare DongleGrowatt: {dongle}, invertoare Solar Assistant: {sa}.",
+        "data": {
+          "source": "Sursa"
+        }
+      },
+      "settings": {
+        "title": "Sistem",
+        "description": "Invertoare găsite: {detected}. Prețul se folosește pentru economiile din Totals.\n\nOrdinea invertoarelor: ce invertor din sursă apare în fiecare coloană. Dacă Solar Assistant le numerotează 1, 2, 3 după portul USB, „1,3,2” pune invertorul lui 3 în a doua coloană.",
+        "data": {
+          "title": "Nume în bara laterală",
+          "inverters": "Număr de invertoare",
+          "battery_kwh": "Capacitatea bateriei",
+          "pv_kwp": "Puterea panourilor (0 = necunoscută)",
+          "price": "Preț energie pe kWh",
+          "currency": "Monedă",
+          "inverter_order": "Ordinea invertoarelor, de ex. 1,3,2 (opțional)",
+          "inverter_names": "Numele invertoarelor, de ex. L1,L2,L3 (opțional)",
+          "bms_host": "PACE BMS: adresa convertorului RS485-Ethernet (opțional)",
+          "bms_port": "PACE BMS: portul TCP al convertorului"
+        }
+      },
+      "manual": {
+        "title": "Entități",
+        "description": "Alege senzorii. Puteri în W (baterie: pozitiv la încărcare), contoare de energie în kWh.",
+        "data": {
+          "pv": "Putere solară",
+          "load": "Consum",
+          "bat_w": "Putere baterie (+ încărcare)",
+          "grid_w": "Putere rețea (+ import)",
+          "soc": "Starea de încărcare a bateriei",
+          "bat_v": "Tensiune baterie",
+          "grid_v": "Tensiune rețea",
+          "energy_pv": "Energie solară",
+          "energy_load": "Energie consumată",
+          "energy_grid_in": "Energie din rețea",
+          "energy_bat_in": "Energie încărcată în baterie",
+          "energy_bat_out": "Energie descărcată din baterie",
+          "weather": "Vreme (prognoza norilor)",
+          "invert_bat": "Senzorul bateriei e pozitiv la descărcare (inversează)",
+          "invert_grid": "Senzorul rețelei e negativ când iei din rețea (inversează)"
+        }
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "GrowSolar",
+        "description": "Sursa: {source}. Invertoare găsite: {detected}. Negăsite: {missing}.\n\nOrdinea invertoarelor: ce invertor din sursă apare în fiecare coloană. Dacă Solar Assistant le numerotează 1, 2, 3 după portul USB, „1,3,2” pune invertorul lui 3 în a doua coloană.",
+        "data": {
+          "title": "Nume în bara laterală",
+          "inverters": "Număr de invertoare",
+          "battery_kwh": "Capacitatea bateriei",
+          "pv_kwp": "Puterea panourilor (0 = necunoscută)",
+          "price": "Preț energie pe kWh",
+          "currency": "Monedă",
+          "inverter_order": "Ordinea invertoarelor, de ex. 1,3,2 (opțional)",
+          "inverter_names": "Numele invertoarelor, de ex. L1,L2,L3 (opțional)",
+          "bms_host": "PACE BMS: adresa convertorului RS485-Ethernet (opțional)",
+          "bms_port": "PACE BMS: portul TCP al convertorului"
+        }
+      },
+      "manual": {
+        "title": "Entități suplimentare",
+        "description": "Opțional: entități care le înlocuiesc sau le completează pe cele găsite automat.",
+        "data": {
+          "pv": "Putere solară",
+          "load": "Consum",
+          "bat_w": "Putere baterie (+ încărcare)",
+          "grid_w": "Putere rețea (+ import)",
+          "soc": "Starea de încărcare a bateriei",
+          "bat_v": "Tensiune baterie",
+          "grid_v": "Tensiune rețea",
+          "energy_pv": "Energie solară",
+          "energy_load": "Energie consumată",
+          "energy_grid_in": "Energie din rețea",
+          "energy_bat_in": "Energie încărcată în baterie",
+          "energy_bat_out": "Energie descărcată din baterie",
+          "weather": "Vreme (prognoza norilor)",
+          "invert_bat": "Senzorul bateriei e pozitiv la descărcare (inversează)",
+          "invert_grid": "Senzorul rețelei e negativ când iei din rețea (inversează)"
+        }
+      }
+    }
+  },
+  "selector": {
+    "source": {
+      "options": {
+        "donglegrowatt": "DongleGrowatt – Growatt cu dongle-ul cu firmware Growatt-SPF6K-HA",
+        "solar_assistant": "Solar Assistant – invertoare pe USB la Solar Assistant, date prin MQTT",
+        "manual": "Aleg eu senzorii – alt invertor, senzori existenți în Home Assistant"
+      }
+    }
+  }
+}

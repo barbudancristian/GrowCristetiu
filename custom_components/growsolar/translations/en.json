@@ -1,0 +1,103 @@
+{
+  "config": {
+    "abort": {
+      "single_instance_allowed": "GrowSolar is already set up. Change it from Configure."
+    },
+    "step": {
+      "user": {
+        "title": "Data source",
+        "description": "Where should GrowSolar read the solar system from?\n\n- **DongleGrowatt** – Growatt inverter(s) with the ShineWiFi-X2 dongle flashed with the [Growatt-SPF6K-HA]({firmware_url}) firmware, one dongle per inverter, with its Home Assistant package installed. GrowSolar can also change the inverter settings this way.\n- **Solar Assistant** – no dongles: the inverter(s) are connected by USB cable to Solar Assistant, and Home Assistant gets the data from Solar Assistant over MQTT.\n- **Choose the sensors myself** – another inverter brand (not Growatt), or any system whose sensors are already in Home Assistant: you pick the power, battery and energy sensors in the next step.\n\nFound now: DongleGrowatt inverters: {dongle}, Solar Assistant inverters: {sa}.",
+        "data": {
+          "source": "Source"
+        }
+      },
+      "settings": {
+        "title": "System",
+        "description": "Inverters found: {detected}. Prices are used for the savings in Totals.\n\nInverter order: which inverter of the source goes in each column. With Solar Assistant numbering them 1, 2, 3 by USB port, \"1,3,2\" shows its inverter 3 in the second column.",
+        "data": {
+          "title": "Name in the sidebar",
+          "inverters": "Number of inverters",
+          "battery_kwh": "Battery capacity",
+          "pv_kwp": "Solar array size (0 = unknown)",
+          "price": "Energy price per kWh",
+          "currency": "Currency",
+          "inverter_order": "Inverter order, e.g. 1,3,2 (optional)",
+          "inverter_names": "Inverter names, e.g. L1,L2,L3 (optional)",
+          "bms_host": "PACE BMS: RS485-to-Ethernet converter address (optional)",
+          "bms_port": "PACE BMS: converter TCP port"
+        }
+      },
+      "manual": {
+        "title": "Entities",
+        "description": "Choose the sensors to use. Power in W (battery: positive while charging), energy counters in kWh.",
+        "data": {
+          "pv": "Solar power",
+          "load": "Load power",
+          "bat_w": "Battery power (+ charging)",
+          "grid_w": "Grid power (+ import)",
+          "soc": "Battery state of charge",
+          "bat_v": "Battery voltage",
+          "grid_v": "Grid voltage",
+          "energy_pv": "Solar energy",
+          "energy_load": "Load energy",
+          "energy_grid_in": "Energy from grid",
+          "energy_bat_in": "Battery energy charged",
+          "energy_bat_out": "Battery energy discharged",
+          "weather": "Weather (cloud forecast)",
+          "invert_bat": "Battery sensor is positive while discharging (invert)",
+          "invert_grid": "Grid sensor is negative while importing (invert)"
+        }
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "GrowSolar",
+        "description": "Source: {source}. Inverters found: {detected}. Not found: {missing}.\n\nInverter order: which inverter of the source goes in each column. With Solar Assistant numbering them 1, 2, 3 by USB port, \"1,3,2\" shows its inverter 3 in the second column.",
+        "data": {
+          "title": "Name in the sidebar",
+          "inverters": "Number of inverters",
+          "battery_kwh": "Battery capacity",
+          "pv_kwp": "Solar array size (0 = unknown)",
+          "price": "Energy price per kWh",
+          "currency": "Currency",
+          "inverter_order": "Inverter order, e.g. 1,3,2 (optional)",
+          "inverter_names": "Inverter names, e.g. L1,L2,L3 (optional)",
+          "bms_host": "PACE BMS: RS485-to-Ethernet converter address (optional)",
+          "bms_port": "PACE BMS: converter TCP port"
+        }
+      },
+      "manual": {
+        "title": "Extra entities",
+        "description": "Optional: entities that replace or add to the ones found automatically.",
+        "data": {
+          "pv": "Solar power",
+          "load": "Load power",
+          "bat_w": "Battery power (+ charging)",
+          "grid_w": "Grid power (+ import)",
+          "soc": "Battery state of charge",
+          "bat_v": "Battery voltage",
+          "grid_v": "Grid voltage",
+          "energy_pv": "Solar energy",
+          "energy_load": "Load energy",
+          "energy_grid_in": "Energy from grid",
+          "energy_bat_in": "Battery energy charged",
+          "energy_bat_out": "Battery energy discharged",
+          "weather": "Weather (cloud forecast)",
+          "invert_bat": "Battery sensor is positive while discharging (invert)",
+          "invert_grid": "Grid sensor is negative while importing (invert)"
+        }
+      }
+    }
+  },
+  "selector": {
+    "source": {
+      "options": {
+        "donglegrowatt": "DongleGrowatt – Growatt with the Growatt-SPF6K-HA dongle firmware",
+        "solar_assistant": "Solar Assistant – inverters on USB to Solar Assistant, data over MQTT",
+        "manual": "Choose the sensors myself – another inverter, existing Home Assistant sensors"
+      }
+    }
+  }
+}
