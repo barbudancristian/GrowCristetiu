@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: MIT
  */
 (() => {
-const VERSION = '0.4.0';
+const VERSION = '0.4.1';
 
 /* ------------------------------------------------------------------ texts */
 const STR = {

@@ -1,6 +1,6 @@
 {
   "domain": "growsolar",
-  "name": "GrowSolar",
+  "name": "GrowCristetiu",
   "codeowners": ["@barbudancristian"],
   "config_flow": true,
   "dependencies": ["frontend", "http", "panel_custom", "recorder"],
@@ -10,5 +10,5 @@
   "issue_tracker": "https://github.com/barbudancristian/GrowCristetiu/issues",
   "requirements": [],
   "single_config_entry": true,
-  "version": "0.4.0"
+  "version": "0.4.1"
 }
