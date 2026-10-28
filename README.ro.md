@@ -2,7 +2,7 @@
 
 # GrowCristetiu
 
-> **GrowCristetiu** este GrowSolar 0.3.3 cu o singură schimbare: pe **Dashboard** apare o **diagramă de flux energetic** (solar sus, rețeaua în stânga, invertoarele la mijloc, casa în dreapta și bateria cu inelul de încărcare jos, plus economia în bani: total, luna aceasta și azi) în locul celor patru aparate analogice. Se instalează ca aceeași integrare `growsolar`, deci instalați fie GrowSolar, fie GrowCristetiu, nu pe amândouă în același Home Assistant.
+> **GrowCristetiu** este GrowSolar 0.3.3 cu o singură schimbare: pe **Dashboard** apare o **diagramă de flux energetic** (solar sus, rețeaua în stânga, invertoarele la mijloc, casa în dreapta și bateria cu inelul de încărcare jos, plus economia în bani: total, luna aceasta și azi) implicit; două buline dedesubt permit revenirea la cele patru aparate analogice (alegerea se păstrează în browser). Se instalează ca aceeași integrare `growsolar`, deci instalați fie GrowSolar, fie GrowCristetiu, nu pe amândouă în același Home Assistant.
 
 Un dashboard solar pentru Home Assistant, făcut pentru invertoarele off-grid **Growatt SPF** (unul sau mai multe, de exemplu câte unul pe fiecare fază). Adaugă în bara laterală pagina **GrowSolar** cu șase vederi: **Dashboard**, **Grafice**, **Totaluri**, **Invertoare**, **Baterie** și **Setări**.
 

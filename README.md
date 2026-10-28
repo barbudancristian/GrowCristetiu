@@ -2,7 +2,7 @@
 
 # GrowCristetiu
 
-> **GrowCristetiu** is GrowSolar 0.3.3 with one change: the **Dashboard** shows an **energy-flow diagram** (solar on top, grid on the left, the inverters in the middle, the house on the right and the battery with its charge ring below, plus the money saved: total, this month and today) instead of the four analog meters. It installs as the same `growsolar` integration, so install either GrowSolar or GrowCristetiu, not both, in one Home Assistant.
+> **GrowCristetiu** is GrowSolar 0.3.3 with one change: the **Dashboard** shows an **energy-flow diagram** (solar on top, grid on the left, the inverters in the middle, the house on the right and the battery with its charge ring below, plus the money saved: total, this month and today) by default; two dots below it switch back to the four analog meters (the choice is kept in the browser). It installs as the same `growsolar` integration, so install either GrowSolar or GrowCristetiu, not both, in one Home Assistant.
 
 A solar dashboard for Home Assistant, made for **Growatt SPF** off-grid inverters (one or several, for example one per phase). It adds a **GrowSolar** page to the sidebar with six views: **Dashboard**, **Charts**, **Totals**, **Inverters**, **Battery** and **Settings**.
 

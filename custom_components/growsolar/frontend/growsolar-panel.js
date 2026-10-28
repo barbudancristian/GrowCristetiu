@@ -7,13 +7,13 @@
  * SPDX-License-Identifier: MIT
  */
 (() => {
-const VERSION = '0.4.1';
+const VERSION = '0.4.2';
 
 /* ------------------------------------------------------------------ texts */
 const STR = {
   en: {
     dashboard: 'Dashboard', charts: 'Charts', totals: 'Totals', inverters: 'Inverters', battery: 'Battery',
-    fSav: 'Total savings', fMonth: 'Month', fToday: 'Today', fProduces: 'producing', fIdle: 'idle', fImport: 'import', fExport: 'export', fNoGrid: 'no grid', fHome: 'House load', fCharging: 'charging', fDischarging: 'discharging', fRest: 'resting',
+    vMeters: 'Meters', vFlow: 'Energy flow', fSav: 'Total savings', fMonth: 'Month', fToday: 'Today', fProduces: 'producing', fIdle: 'idle', fImport: 'import', fExport: 'export', fNoGrid: 'no grid', fHome: 'House load', fCharging: 'charging', fDischarging: 'discharging', fRest: 'resting',
     inverter: 'Inverter', solar: 'Solar PV', grid: 'Grid', load: 'Load', mode: 'mode',
     today: 'Today', peak: 'Peak', present: 'present', absent: 'absent', perHour: '%/h', socRate: 'Charge rate',
     cellsTitle: 'Cells · PACE BMS', cHigh: 'Highest', cLow: 'Lowest', cImb: 'Imbalance', cAvg: 'Average', temps: 'Temperatures',
@@ -55,7 +55,7 @@ const STR = {
   },
   ro: {
     dashboard: 'Dashboard', charts: 'Grafice', totals: 'Totaluri', inverters: 'Invertoare', battery: 'Baterie',
-    fSav: 'Economie totală', fMonth: 'Luna', fToday: 'Azi', fProduces: 'produce', fIdle: 'inactiv', fImport: 'import', fExport: 'export', fNoGrid: 'fără rețea', fHome: 'Consum casă', fCharging: 'se încarcă', fDischarging: 'se descarcă', fRest: 'repaus',
+    vMeters: 'Aparate', vFlow: 'Flux energetic', fSav: 'Economie totală', fMonth: 'Luna', fToday: 'Azi', fProduces: 'produce', fIdle: 'inactiv', fImport: 'import', fExport: 'export', fNoGrid: 'fără rețea', fHome: 'Consum casă', fCharging: 'se încarcă', fDischarging: 'se descarcă', fRest: 'repaus',
     inverter: 'Invertor', solar: 'Solar', grid: 'Rețea', load: 'Consum', mode: 'mod',
     today: 'Azi', peak: 'Vârf', present: 'prezentă', absent: 'absentă', perHour: '%/h', socRate: 'Ritm de încărcare',
     cellsTitle: 'Celule · PACE BMS', cHigh: 'Maximă', cLow: 'Minimă', cImb: 'Dezechilibru', cAvg: 'Medie', temps: 'Temperaturi',
@@ -246,6 +246,10 @@ nav button.on,.seg button.on{background:#2c4fa8;border-color:#4a6fd0;color:#fff}
 .tile .big.txt{font-size:19px;font-weight:650;line-height:1.25;white-space:normal}
 .tile .sub{color:var(--mut)}
 .tile .red{color:var(--bad)}.tile .grn{color:var(--bat)}
+.dots{display:flex;justify-content:center;gap:10px;margin-top:12px}
+.dot{width:10px;height:10px;border-radius:50%;border:0;padding:0;background:rgba(255,255,255,.22);cursor:pointer;transition:background .2s,transform .2s}
+.dot:hover{background:rgba(255,255,255,.45)}.dot.on{background:var(--tx);transform:scale(1.15)}
+.dot:focus-visible{outline:2px solid var(--load);outline-offset:3px}
 .flow>svg{display:block;width:100%;max-width:620px;height:auto;margin:14px auto 0}
 .flow .fv{font-size:15px;font-weight:700;fill:var(--tx);font-variant-numeric:tabular-nums}
 .flow .fl1{font-size:12px;fill:#c9d4ee}.flow .fl2{font-size:11px;fill:var(--mut)}
@@ -846,7 +850,17 @@ class GrowSolarPanel extends HTMLElement {
           <div class="tile"><div class="ic" id="d_gridic">${ICON.plug}</div><div class="tx"><b>${this.t('grid')}</b><span class="big" id="d_gridv">–</span><span class="sub" id="d_gridst"></span></div></div>
           <div class="tile link" data-go="battery"><div class="ic" id="d_batic">${ICON.battery(NaN)}</div><div class="tx"><b>${this.t('battery')}</b><span class="big" id="d_soc">–</span><span id="d_rate"></span><span class="sub" id="d_left"></span></div></div>
         </div>
-        <div class="flow" id="d_flow">${this._flowSvg()}</div>
+        <div class="dview">
+          <div class="gauges" id="d_gauges">
+            <div class="gauge" id="g_load"></div><div class="gauge" id="g_pv"></div>
+            <div class="gauge" id="g_grid"></div><div class="gauge" id="g_bat"></div>
+          </div>
+          <div class="flow" id="d_flow">${this._flowSvg()}</div>
+          <div class="dots" role="tablist">
+            <button class="dot" data-dv="gauges" role="tab" aria-label="${esc(this.t('vMeters'))}" title="${esc(this.t('vMeters'))}"></button>
+            <button class="dot" data-dv="flow" role="tab" aria-label="${esc(this.t('vFlow'))}" title="${esc(this.t('vFlow'))}"></button>
+          </div>
+        </div>
       </section>
       <section class="card">
         <h2><button class="arrow" id="pv_prev">‹</button><span class="sp" style="text-align:center" id="pv_title">${this.t('pvToday')}</span><button class="arrow" id="pv_next">›</button></h2>
@@ -867,6 +881,19 @@ class GrowSolarPanel extends HTMLElement {
     this.$('#pv_next').addEventListener('click', () => { if (this._pvDay < 0) { this._pvDay++; this._loadPvDay(); } });
     this._reload();
     this._loadSavings();
+    // meters or energy flow: two dots below, the choice is remembered in this browser
+    let dv = 'flow';
+    try { dv = localStorage.getItem('growsolar_dview') === 'gauges' ? 'gauges' : 'flow'; } catch (e) { /* no storage */ }
+    const showDv = (v) => {
+      this.$('#d_gauges').style.display = v === 'flow' ? 'none' : '';
+      this.$('#d_flow').style.display = v === 'flow' ? '' : 'none';
+      this.shadowRoot.querySelectorAll('.dots .dot').forEach((b) => { const on = b.dataset.dv === v; b.classList.toggle('on', on); b.setAttribute('aria-selected', on); });
+    };
+    showDv(dv);
+    this.shadowRoot.querySelectorAll('.dots .dot').forEach((b) => b.addEventListener('click', () => {
+      showDv(b.dataset.dv);
+      try { localStorage.setItem('growsolar_dview', b.dataset.dv); } catch (e) { /* no storage */ }
+    }));
   }
   /* ---------- energy flow: solar on top, grid left, house right, battery below, the inverters in the middle */
   _flowSvg() {
@@ -1164,6 +1191,10 @@ class GrowSolarPanel extends HTMLElement {
     if (re && isNum(rate)) { re.textContent = (rate > 0 ? '+' : rate < 0 ? '−' : '') + Math.abs(rate).toFixed(1) + ' ' + this.t('perHour'); re.className = rate < -0.05 ? 'red' : rate > 0.05 ? 'grn' : ''; }
     const n = Math.max(1, this.invs.length), maxP = n * 6000;
     const pvMax = this._cfg.pv_kwp > 0 ? this._cfg.pv_kwp * 1000 : maxP;
+    this.gauge(this.$('#g_load'), 'load', 'LOAD', load, maxP);
+    this.gauge(this.$('#g_pv'), 'pv', 'SOLAR', pv, pvMax);
+    this.gauge(this.$('#g_grid'), 'grid', 'GRID', grid, maxP, true, ['EXPORT', 'IMPORT', '#1f8a4c', '#c8202a']);
+    this.gauge(this.$('#g_bat'), 'bat', 'BAT', bat, maxP, true, ['DISCHARGE', 'CHARGE', '#c8202a', '#1f8a4c'], { full: 10, step: 1, label: 2 });
     this._liveFlow(pv, load, grid, bat, soc, gv);
     if (Date.now() - (this._savT || 0) > 120000) this._loadSavings();
   }
