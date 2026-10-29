@@ -1,14 +1,22 @@
 {
   "domain": "growsolar",
   "name": "GrowCristetiu",
-  "codeowners": ["@barbudancristian"],
+  "codeowners": [
+    "@barbudancristian"
+  ],
   "config_flow": true,
-  "dependencies": ["frontend", "http", "panel_custom", "recorder"],
+  "dependencies": [
+    "frontend",
+    "http",
+    "panel_custom",
+    "recorder",
+    "websocket_api"
+  ],
   "documentation": "https://github.com/barbudancristian/GrowCristetiu",
   "integration_type": "service",
   "iot_class": "local_polling",
   "issue_tracker": "https://github.com/barbudancristian/GrowCristetiu/issues",
   "requirements": [],
   "single_config_entry": true,
-  "version": "0.4.3"
+  "version": "0.4.4"
 }
